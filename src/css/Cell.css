@@ -1,0 +1,8 @@
+* {
+    box-sizing: border-box;
+}
+
+.Cell {
+    background-color: #ffffff50;
+    border-radius: 5px;
+}
