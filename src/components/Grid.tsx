@@ -65,10 +65,12 @@ class Grid extends React.Component<IProps> {
           >
             <p className="Title">{this.props.title}</p>
           </div>
+
           <div style={{
             height: "5px",
             width: "0px"
           }} />
+
           <div className="Container Grid">
             {measures}
           </div>
@@ -78,4 +80,4 @@ class Grid extends React.Component<IProps> {
   }
 }
 
-export default Grid;
+export default Grid

@@ -1,0 +1,15 @@
+.Bar {
+  background-color: #ffffff9a;
+
+  transition: all ease-in-out 0.1s;
+}
+
+.Bar:hover {
+  background-color: #ffffffbb;
+
+  cursor: grab;
+}
+
+.Bar:active {
+  cursor: grabbing;
+}

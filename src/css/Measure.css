@@ -32,6 +32,11 @@
   border: 3px solid #ffffff;
 }
 
+.Measure:active {
+  background-color: #ffffffbd;
+  border: 6px solid #ffffff;
+}
+
 .Title {
   font-family: "opensans-bold";
   margin: 0px;

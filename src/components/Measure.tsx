@@ -29,4 +29,4 @@ class Measure extends React.Component<IProps> {
   }
 }
 
-export default Measure;
+export default Measure
