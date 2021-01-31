@@ -1,12 +1,46 @@
-.Grid {
-  display: flex;
-  flex-wrap: wrap;
+@font-face {
+  font-family: "opensans-bold";
+  src: url("./fonts/OpenSans/opensans-bold-webfont.woff2") format("woff2"),
+    url("./fonts/OpenSans/opensans-bold-webfont.woff") format("woff");
+}
 
-  width: 50%;
+.Container {
+  display: inline-block;
 
   padding: 5px;
 
   border-radius: 5px;
   border: 3px solid #ffffff9a;
-  background-color: #8f8f8f65;
+  background-color: #88888852;
+}
+
+.Move {
+  cursor: grab;
+  transition: all ease-in-out 0.05s;
+}
+
+.Move:hover {
+  background-color: #afafaf52;
+}
+
+.Move:active {
+  cursor: grabbing;
+  background-color: #afafaf75;
+  border: 4px solid #ffffffa8;
+}
+
+.Grid {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 100%;
+}
+
+.Title {
+  font-family: "opensans-bold";
+  font-size: 18px;
+
+  margin: 0px 5px 0px 2.5px;
+
+  color: #ffffff;
 }

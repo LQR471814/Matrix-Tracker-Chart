@@ -9,11 +9,11 @@ interface IProps {
   margin: string
 }
 
-class Cell extends React.Component<IProps> {
+class Measure extends React.Component<IProps> {
   render() {
     return (
       <div
-        className="Cell"
+        className="Measure"
         style={{
           width: this.props.width,
           height: this.props.height,
@@ -29,4 +29,4 @@ class Cell extends React.Component<IProps> {
   }
 }
 
-export default Cell;
+export default Measure;

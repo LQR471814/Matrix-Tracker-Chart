@@ -10,13 +10,16 @@ class App extends React.Component {
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
         padding: "8px",
-        height: "100vh"}}>
+        height: "100vh",
+        overflow: "hidden"
+      }}>
         <Grid
           measures={50}
           measureWidth="100px"
           measureHeight="100px"
           pad="5px"
-          gap="4px"
+          gap="2.5px"
+          title="Chanson Triste"
         />
       </div>
     )
