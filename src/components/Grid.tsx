@@ -1,30 +1,35 @@
 import React from 'react'
-import Cell from './Cell'
+import Measure from './Measure'
+
+import "../css/Grid.css"
 
 interface IProps {
   measures: number
-  size: string
+  measureWidth: string
+  measureHeight: string
+  pad: string
+  gap: string
 }
 
 class Grid extends React.Component<IProps> {
   render() {
-    let cells = []
+    let measures = []
     for (let i = 0; i < this.props.measures; i++) {
-      cells.push(<Cell id={i.toString()} />)
+      measures.push(
+        <Measure
+          id={(i + 1).toString()}
+          key={i}
+          width={this.props.measureWidth}
+          height={this.props.measureHeight}
+          padding={this.props.pad}
+          margin={this.props.gap}
+        />
+      )
     }
 
     return (
-      <div
-        style={{
-          display: "grid",
-          gap: "8px",
-          gridTemplateColumns: `repeat(auto-fit, ${this.props.size})`,
-          gridTemplateRows: `repeat(auto-fit, ${this.props.size})`
-          // gridTemplateColumns: `repeat(minmax(${this.props.size}, ${this.props.size}), ${this.props.columns})`,
-          // gridTemplateRows: `repeat(minmax(${this.props.size}, ${this.props.size}), ${this.props.rows})`
-        }}>
-        {cells}
-
+      <div className="Grid">
+        {measures}
       </div>
     )
   }

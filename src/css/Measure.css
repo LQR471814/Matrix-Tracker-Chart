@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "opensans-bold";
+  src: url("./fonts/OpenSans/opensans-bold-webfont.woff2") format("woff2"),
+    url("./fonts/OpenSans/opensans-bold-webfont.woff") format("woff");
+}
+
+.Cell {
+  background-color: #ffffff7c;
+  border-radius: 5px;
+
+  backdrop-filter: blur(3px);
+
+  border: 0px solid #ffffff00;
+
+  transition: all ease-in-out 0.07s;
+}
+
+.Cell:hover {
+  cursor: pointer;
+
+  background-color: #ffffffa6;
+  border: 3px solid #ffffff;
+}
+
+.Title {
+  font-family: "opensans-bold";
+  margin: 0px;
+  color: #ffffff;
+}
