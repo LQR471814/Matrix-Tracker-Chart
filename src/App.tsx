@@ -14,7 +14,7 @@ class App extends React.Component {
         overflow: "hidden"
       }}>
         <Grid
-          measures={50}
+          measures={25}
           measureWidth="100px"
           measureHeight="100px"
           pad="5px"
