@@ -24,7 +24,6 @@ class ResizeBar extends React.Component<IProps> {
   private activationWidth = "1000%"
 
   private mouseIsDown = false
-  private exitLater = false
 
   onMouseDown = () => {
     document.addEventListener("mouseup", this.onMouseUp)
@@ -64,9 +63,6 @@ class ResizeBar extends React.Component<IProps> {
       this.arrowLeftRef.current!.style.right = this.expanded
       this.arrowRightRef.current!.style.left = this.expanded
     }
-
-    this.onExit()
-    this.exitLater = false
   }
 
   onHover = () => {
@@ -108,8 +104,6 @@ class ResizeBar extends React.Component<IProps> {
 
       this.arrowLeftRef.current!.style.opacity = "0"
       this.arrowRightRef.current!.style.opacity = "0"
-    } else {
-      this.exitLater = true
     }
   }
 
