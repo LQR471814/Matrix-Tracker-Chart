@@ -23,7 +23,14 @@ class ResizeBar extends React.Component<IProps> {
 
   private activationWidth = "1000%"
 
+  private mouseIsDown = false
+  private exitLater = false
+
   onMouseDown = () => {
+    document.addEventListener("mouseup", this.onMouseUp)
+
+    this.mouseIsDown = true
+
     this.barRef.current!.style.backgroundColor = "#ffffff"
 
     if (this.props.orientation === "horizontal") {
@@ -40,6 +47,10 @@ class ResizeBar extends React.Component<IProps> {
   }
 
   onMouseUp = () => {
+    document.removeEventListener("mouseup", this.onMouseUp)
+
+    this.mouseIsDown = false
+
     this.barRef.current!.style.backgroundColor = "#ffffffbb"
 
     if (this.props.orientation === "horizontal") {
@@ -53,44 +64,53 @@ class ResizeBar extends React.Component<IProps> {
       this.arrowLeftRef.current!.style.right = this.expanded
       this.arrowRightRef.current!.style.left = this.expanded
     }
+
+    this.onExit()
+    this.exitLater = false
   }
 
   onHover = () => {
-    this.barRef.current!.style.backgroundColor = "#ffffffbb"
+    if (this.mouseIsDown === false) {
+      this.barRef.current!.style.backgroundColor = "#ffffffbb"
 
-    if (this.props.orientation === "horizontal") {
-      this.barRef.current!.style.width = this.props.length
-      this.barRef.current!.style.height = this.expandedWidth
+      if (this.props.orientation === "horizontal") {
+        this.barRef.current!.style.width = this.props.length
+        this.barRef.current!.style.height = this.expandedWidth
 
-      this.arrowLeftRef.current!.style.top = this.expanded
-      this.arrowRightRef.current!.style.bottom = this.expanded
-    } else {
-      this.barRef.current!.style.width = this.expandedWidth
+        this.arrowLeftRef.current!.style.top = this.expanded
+        this.arrowRightRef.current!.style.bottom = this.expanded
+      } else {
+        this.barRef.current!.style.width = this.expandedWidth
 
-      this.arrowLeftRef.current!.style.right = this.expanded
-      this.arrowRightRef.current!.style.left = this.expanded
+        this.arrowLeftRef.current!.style.right = this.expanded
+        this.arrowRightRef.current!.style.left = this.expanded
+      }
+
+      this.arrowLeftRef.current!.style.opacity = "1"
+      this.arrowRightRef.current!.style.opacity = "1"
     }
-
-    this.arrowLeftRef.current!.style.opacity = "1"
-    this.arrowRightRef.current!.style.opacity = "1"
   }
 
   onExit = () => {
-    if (this.props.orientation === "horizontal") {
-      this.barRef.current!.style.width = this.props.length
-      this.barRef.current!.style.height = this.width
+    if (this.mouseIsDown === false) {
+      if (this.props.orientation === "horizontal") {
+        this.barRef.current!.style.width = this.props.length
+        this.barRef.current!.style.height = this.width
 
-      this.arrowLeftRef.current!.style.top = this.default
-      this.arrowRightRef.current!.style.bottom = this.default
+        this.arrowLeftRef.current!.style.top = this.default
+        this.arrowRightRef.current!.style.bottom = this.default
+      } else {
+        this.barRef.current!.style.width = this.width
+
+        this.arrowLeftRef.current!.style.right = this.default
+        this.arrowRightRef.current!.style.left = this.default
+      }
+
+      this.arrowLeftRef.current!.style.opacity = "0"
+      this.arrowRightRef.current!.style.opacity = "0"
     } else {
-      this.barRef.current!.style.width = this.width
-
-      this.arrowLeftRef.current!.style.right = this.default
-      this.arrowRightRef.current!.style.left = this.default
+      this.exitLater = true
     }
-
-    this.arrowLeftRef.current!.style.opacity = "0"
-    this.arrowRightRef.current!.style.opacity = "0"
   }
 
   checkX = (attr: "right" | "left") => { //? Assigned to right and left
@@ -160,7 +180,6 @@ class ResizeBar extends React.Component<IProps> {
           onMouseEnter={this.onHover}
           onMouseLeave={this.onExit}
           onMouseDown={this.onMouseDown}
-          onMouseUp={this.onMouseUp}
           className="Activation"
           style={{
             width: activationX,
