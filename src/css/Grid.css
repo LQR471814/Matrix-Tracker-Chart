@@ -32,6 +32,9 @@
 .Grid {
   display: flex;
   flex-wrap: wrap;
+  align-items: stretch;
+
+  overflow: hidden;
 
   width: 100%;
 }

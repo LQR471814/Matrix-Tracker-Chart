@@ -16,7 +16,6 @@ class App extends React.Component {
         <Grid
           measures={25}
           measureWidth="100px"
-          measureHeight="100px"
           pad="5px"
           gap="2.5px"
           title="Chanson Triste"

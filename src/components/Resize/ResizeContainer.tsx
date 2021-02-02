@@ -1,35 +1,62 @@
 import React from 'react'
 import ResizeBar from './ResizeBar'
+import Draggable from 'react-draggable'
+import type { DraggableEventHandler, DraggableEvent, DraggableData } from 'react-draggable'
 
-type IProps = React.PropsWithChildren<{margin: string}>
+import '../../css/Resize.css'
+
+interface IProps {
+  children: React.ReactElement,
+  childRef: React.RefObject<any>,
+  margin: string,
+  resizeXCallback: (data: DraggableData) => void,
+  resizeYCallback: (data: DraggableData) => void
+}
 
 class ResizeContainer extends React.Component<IProps> {
-  private currentKey = -1
+  public verticalBarRef = React.createRef<ResizeBar>()
+  public horizontalBarRef = React.createRef<ResizeBar>()
 
-  uniqueKey() {
-    this.currentKey++
-    return this.currentKey
+  private verticalBarContainerRef = React.createRef<HTMLDivElement>()
+  private horizontalBarContainerRef = React.createRef<HTMLDivElement>()
+
+  private childContainerRef = React.createRef<HTMLDivElement>()
+
+  onDragX: DraggableEventHandler = (e: DraggableEvent, data: DraggableData) => {
+    this.childContainerRef.current!.style.width = window.getComputedStyle(this.props.childRef.current!).width
+    this.props.resizeXCallback(data)
+  }
+
+  onDragY: DraggableEventHandler = (e: DraggableEvent, data: DraggableData) => {
+    this.childContainerRef.current!.style.height = window.getComputedStyle(this.props.childRef.current!).height
+    this.props.resizeYCallback(data)
   }
 
   render() {
-    var renderedChildren = Array(this.props.children)
-    if (!Array.isArray(this.props.children)) {
-      renderedChildren = [this.props.children]
-    }
-
     return (
-      <div>
-        { renderedChildren &&
-          renderedChildren.map((child: any) => {
-            return (
-              <div key={this.uniqueKey()}>
-                {child}
-                <ResizeBar orientation="vertical" top="0%" left={`calc(${this.props.margin} + 100%)`} length="100%" />
-                <ResizeBar orientation="horizontal" top={`calc(${this.props.margin} + 100%)`} left="0%" length="100%" />
-              </div>
-            )
-          })
-        }
+      <div ref={this.childContainerRef} style={{ width: "100%", height: "100%" }}>
+        {this.props.children}
+        <Draggable axis="x" onDrag={this.onDragX} nodeRef={this.verticalBarContainerRef}>
+          <div
+            className="ResizeContainer"
+            ref={this.verticalBarContainerRef}
+            style={{
+              left: `calc(${this.props.margin} + 100%)`,
+            }}>
+            <ResizeBar ref={this.verticalBarRef} orientation="vertical" length="100%" />
+          </div>
+        </Draggable>
+
+        <Draggable axis="y" onDrag={this.onDragY} nodeRef={this.horizontalBarContainerRef}>
+          <div
+            className="ResizeContainer"
+            ref={this.horizontalBarContainerRef}
+            style={{
+              top: `calc(${this.props.margin} + 100%)`,
+            }}>
+            <ResizeBar ref={this.horizontalBarRef} orientation="horizontal" length="100%" />
+          </div>
+        </Draggable>
       </div>
     )
   }

@@ -1,0 +1,60 @@
+.Bar {
+  position: relative;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background-color: #ffffff9a;
+
+  transition: all ease-in-out 0.1s;
+}
+
+.Bar:hover {
+  background-color: #ffffffbb;
+
+  cursor: grab;
+}
+
+.Bar:active {
+  cursor: grabbing;
+}
+
+.ResizeContainer {
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+
+  left: 0%;
+  top: 0%;
+
+  /* To override react-draggable's automatic UI updating thing because the translated position in it is not accurate */
+  transform: translate(0px, 0px) !important;
+}
+
+.Arrow {
+  position: absolute;
+
+  opacity: 0;
+
+  width: 0.75em;
+  height: 0.75em;
+  transition: all ease-in-out 0.15s
+}
+
+.Activation {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  cursor: grab;
+}
+
+.Activation:active {
+  cursor: grabbing;
+}
+

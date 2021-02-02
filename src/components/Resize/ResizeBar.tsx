@@ -1,27 +1,59 @@
 import React from 'react'
-import '../../css/ResizeBar.css'
+import '../../css/Resize.css'
 import { ReactComponent as Arrow } from '../../css/assets/arrow.svg'
 
 interface IProps {
   orientation: "horizontal" | "vertical"
-  top: string
-  left: string
   length: string
 }
 
 class ResizeBar extends React.Component<IProps> {
-  private activationRef = React.createRef<HTMLDivElement>()
+  public activationRef = React.createRef<HTMLDivElement>()
   private barRef = React.createRef<HTMLDivElement>()
   private arrowLeftRef = React.createRef<SVGSVGElement>()
   private arrowRightRef = React.createRef<SVGSVGElement>()
 
   private width = "2px"
   private expandedWidth = "4px"
+  private clickedBarWidth = "4.5px"
 
   private default = "100%"
   private expanded = "400%"
+  private clicked = "200%"
 
   private activationWidth = "1000%"
+
+  onMouseDown = () => {
+    this.barRef.current!.style.backgroundColor = "#ffffff"
+
+    if (this.props.orientation === "horizontal") {
+      this.barRef.current!.style.height = this.clickedBarWidth
+
+      this.arrowLeftRef.current!.style.top = this.clicked
+      this.arrowRightRef.current!.style.bottom = this.clicked
+    } else {
+      this.barRef.current!.style.width = this.clickedBarWidth
+
+      this.arrowLeftRef.current!.style.right = this.clicked
+      this.arrowRightRef.current!.style.left = this.clicked
+    }
+  }
+
+  onMouseUp = () => {
+    this.barRef.current!.style.backgroundColor = "#ffffffbb"
+
+    if (this.props.orientation === "horizontal") {
+      this.barRef.current!.style.height = this.expandedWidth
+
+      this.arrowLeftRef.current!.style.top = this.expanded
+      this.arrowRightRef.current!.style.bottom = this.expanded
+    } else {
+      this.barRef.current!.style.width = this.expandedWidth
+
+      this.arrowLeftRef.current!.style.right = this.expanded
+      this.arrowRightRef.current!.style.left = this.expanded
+    }
+  }
 
   onHover = () => {
     this.barRef.current!.style.backgroundColor = "#ffffffbb"
@@ -110,64 +142,50 @@ class ResizeBar extends React.Component<IProps> {
           position: "absolute",
           width: barWidth,
           height: barHeight,
-          top: this.props.top,
-          left: this.props.left
+          top: "0%",
+          left: "0%"
         }}
       >
         <div
           className="Bar"
           ref={this.barRef}
           style={{
-            position: "relative",
             borderRadius: this.width,
             width: barWidth,
             height: barHeight,
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)"
           }} />
 
         <div
-        ref={this.activationRef}
+          ref={this.activationRef}
           onMouseEnter={this.onHover}
           onMouseLeave={this.onExit}
+          onMouseDown={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          className="Activation"
           style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
             width: activationX,
             height: activationY,
-            cursor: "grab"
           }} />
 
         <Arrow
           ref={this.arrowLeftRef}
+          className="Arrow"
           style={{
-            position: "absolute",
             top: this.checkY("top"),
             bottom: this.checkY("bottom"),
             left: this.checkX("left"),
             right: this.checkX("right"),
             transform: arrowTransform.replace("-90deg", "90deg").replace("-180deg", "0deg"),
-            opacity: "0",
-            width: "0.75em",
-            height: "0.75em",
-            transition: "all ease-in-out 0.15s",
           }} />
         <Arrow
           ref={this.arrowRightRef}
+          className="Arrow"
           style={{
-            position: "absolute",
             top: this.checkY("top"),
             bottom: this.checkY("bottom"),
             left: this.checkX("left"),
             right: this.checkX("right"),
             transform: arrowTransform,
-            opacity: "0",
-            width: "0.75em",
-            height: "0.75em",
-            transition: "all ease-in-out 0.15s",
           }} />
       </div>
     )
