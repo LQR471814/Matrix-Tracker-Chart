@@ -40,7 +40,7 @@ class Grid extends React.Component<IProps> {
             ref={this.titleRef}
             id="GridDragHandle"
           >
-            <p className="Title">{this.props.title}</p>
+            <p className="GridTitle">{this.props.title}</p>
           </div>
 
           <div style={{ //? Gap

@@ -21,7 +21,7 @@ class Measure extends React.Component<IProps> {
           flexShrink: 1,
         }}
       >
-        <p className="Title">{this.props.id}</p>
+        <p className="MeasureTitle">{this.props.id}</p>
       </div>
     )
   }
